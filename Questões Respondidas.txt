@@ -1,0 +1,49 @@
+A) acesse o arquivo php.ini (acessível através do botão "config" do Apache no XAMPP)
+	e liste os valores definidos para file_uploads, upload_max_filesize, upload_tmp_dir,
+	post_max_size, max_input_time.
+
+	file_uploads = On
+	upload_max_filesize = 10M
+	upload_tmp_dir = "/tmp"
+	post_max_size = 20M
+	max_input_time = 60
+
+B) para que servem as funções is_uploaded_file() e move_uploaded_file().
+
+	A função is_uploaded_file() é usada para verificar se o arquivo foi enviado via HTTP POST.
+	Ela recebe um parâmetro que é o nome do arquivo e retorna
+	true se o arquivo foi enviado via POST,
+	ou false se não foi.
+
+C) Para que serve a tag <input type="hidden">?
+
+	A tag <input type="hidden"> é usada em formulários HTML para incluir dados
+	que não são visíveis para o usuário,
+	mas que precisam ser enviados quando o formulário é submetido. 
+
+D) Como filtrar as extensões de arquivos que serão aceitas para upload no programa PHP?
+	
+	Para filtrar as extensões de arquivos que serão aceitas para upload em um programa PHP
+	você pode utilizar a função pathinfo() para obter a extensão do arquivo
+	e compará-la com uma lista de extensões permitidas.
+	
+	php
+	$extensoes_permitidas = array('jpg', 'jpeg', 'png', 'gif');
+	$nome_arquivo = $_FILES['arquivo']['name'];
+	$extensao = pathinfo($nome_arquivo, PATHINFO_EXTENSION);
+
+	if (in_array($extensao, $extensoes_permitidas)) {
+    // O arquivo tem uma extensão permitida, então você pode prosseguir com o upload
+    move_uploaded_file($_FILES['arquivo']['tmp_name'], 'caminho/para/o/diretorio/' . $nome_arquivo);
+	} else {
+    // A extensão do arquivo não é permitida, então você pode lidar com isso de acordo com a lógica do seu programa
+    echo "A extensão do arquivo não é permitida";
+	}
+
+
+	Neste exemplo, $_FILES['arquivo']['name'] contém o nome original do arquivo
+	enviado e pathinfo() é usada para obter a extensão desse nome.
+	A função in_array() é usada para verificar se a extensão está na lista de extensões permitidas.
+
+
+
